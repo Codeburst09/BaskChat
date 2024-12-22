@@ -1,5 +1,6 @@
 import streamlit as st
-
+import subprocess
+import sys
 
 # Function to ensure a library is installed
 def install_and_import(package):
