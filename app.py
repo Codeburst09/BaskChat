@@ -1,10 +1,37 @@
 import streamlit as st
+
+
+# Function to ensure a library is installed
+def install_and_import(package):
+    try:
+        __import__(package)
+    except ImportError:
+        st.warning(f"Installing missing package: {package}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        st.success(f"Package {package} installed successfully!")
+        __import__(package)
+
+# Ensure required packages are installed
+install_and_import("langchain_groq")
+install_and_import("chromadb")
+
+
+# Add your main Streamlit app logic here
+st.title("Streamlit App with Dynamic Package Installation")
+st.write("All required packages should now be installed and imported!")
 from langchain_groq import ChatGroq
 import chromadb
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 import uuid
+import streamlit as st
+import subprocess
+import sys
+# Import after ensuring installation
+from langchain_groq import ChatGroq
+import chromadb
+
 
 # Ollama Llama 3.2 Configuration
 API_BASE = "http://localhost:11434"
